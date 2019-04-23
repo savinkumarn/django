@@ -1,7 +1,9 @@
-{% load static %}
-<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-<link rel="stylesheet" type="text/css" href="{% static 'music/style.css' %}" />
 
+{% extends 'music/base.html' %}
+{% block title %}{{ album }}{% endblock %}
+{% block albums_active %}active{% endblock %}
+
+{% block body %}
 
 <img src="{{album.album_logo}}" height="50px" width="50px">
 
@@ -29,3 +31,4 @@
 {% else %}
     <h3> No Songs in the Album</h3>
 {% endif %}
+{% endblock %}
