@@ -2,17 +2,7 @@
 {% block albums_active %}active{% endblock %}
 
 {% block body %}
-<h1> Welcome to my Music Page</h1>
-<h2> Here are my albums</h2>
 
-{% if all_albums %}
-    <ul>
-        {% for album in all_albums %}
-        <li><a href="{%url 'music:get_album_details' album.id%}">{{album.artist}} - {{ album.album_title }}</a></li>
-        {% endfor %}
-    </ul>
-{% else %}
-    <h3> You don't have any albums</h3>
-{% endif %}
+<h1>Welcome To My Music Page</h1>
 
 {% endblock %}

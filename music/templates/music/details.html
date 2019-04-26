@@ -4,11 +4,12 @@
 {% block albums_active %}active{% endblock %}
 
 {% block body %}
+<a id="back-button" class="glyphicon glyphicon-chevron-left" href="{% url 'music:all_albums' %}">Back</a>
 
-<img src="{{album.album_logo}}" height="50px" width="50px">
 
-
-<div>{{ album.artist }} - {{ album.album_title }}</div>
+<div class="details-page">
+<div> <img src="{{album.album_logo}}" height="50px" width="50px">
+    {{ album.artist }} - {{ album.album_title }} </div>
 
 
 {% if error_message %}
@@ -31,4 +32,9 @@
 {% else %}
     <h3> No Songs in the Album</h3>
 {% endif %}
+</div>
+
+
+
+
 {% endblock %}

@@ -6,12 +6,16 @@ from .models import Album,Song
 # Create your views here.
 
 
-def index(request):
+def base(request):
+    return render(request,'music/index.html',context=None)
+
+
+def all_albums(request):
     all_albums = Album.objects.all()
     context = {
         'all_albums': all_albums,
     }
-    return render(request,'music/index.html',context)
+    return render(request,'music/album.html',context)
 
 
 def add_music(request):

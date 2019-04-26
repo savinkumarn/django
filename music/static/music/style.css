@@ -1,3 +1,21 @@
 body {
     background: aliceblue ;
 }
+
+.details-page{
+    text-align: center
+}
+
+#back-button{
+ text-decoration: none !important;
+ background-color: transparent;
+  color: black;
+  padding-top: 00px;
+  padding-right: 0px;
+  padding-bottom: 0px;
+  padding-left: 5px;
+  text-align: left;
+  display: inline-block;
+  font-size: 16px;
+}
+
