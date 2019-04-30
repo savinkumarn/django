@@ -32,3 +32,43 @@ render is used to invoke the html page directly
 that is httpResponse is created by it and displayed on the screen
 it needs request,file name, context
 
++++++++++++++++++++================================================
+
+
+ docker run -d --name mongo -p 27017:27017  -v /home/savin/pycharmWorkspace/data/db:/data/db   mvertes/alpine-mongo
+
+
+++++++++++++++++++++++++++==========================++++++++++++++++++++++++
+
+Mongo Engine
+
+
+//Start the container
+docker container start c961241d58cd
+
+//Run a shell
+docker exec -ti mongo sh
+
+===========================================================================
+
+python manage.py makemigrations shoppingCart
+
+python manage.py migrate --database=scart_db
+
+
+scart_db
+
+============================================================================
+
+shoppingCart structure :
+
+
+{
+
+}
+
+
+
+
+
+

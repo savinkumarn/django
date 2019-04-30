@@ -37,7 +37,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'music.apps.MusicConfig'
+    'music.apps.MusicConfig',
+    'shoppingCart',
 ]
 
 MIDDLEWARE = [
@@ -78,9 +79,15 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-    }
+    },
+    'scart_db':{
+        'ENGINE': 'djongo',
+        'NAME': 'scart_mongo_db',
+        'HOST': 'localhost',
+        'PORT': 27017,
+        'ENFORCE_SCHEMA': True,
+   },
 }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/2.2/ref/settings/#auth-password-validators

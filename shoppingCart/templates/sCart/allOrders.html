@@ -1,0 +1,8 @@
+{% extends 'music/base.html' %}
+{% block albums_active %}active{% endblock %}
+
+{% block body %}
+        {% for orders in all_orders %}
+         <li> Order No- {{orders.workfile}}</li>
+        {% endfor %}
+{% endblock %}
