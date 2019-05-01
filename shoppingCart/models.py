@@ -3,6 +3,7 @@ from djongo import models
 
 # Create your models here.
 
+
 class SCart(models.Model):
     workfile = models.CharField(max_length=100)
     cartQty = models.IntegerField()
@@ -55,3 +56,10 @@ class Payment(models.Model):
 class CardInfo(models.Model):
     cardInfo_1 = models.CharField(max_length=100)
     cardInfo_2 = models.CharField(max_length=100)
+
+
+class Entry(models.Model):
+    sCart = models.EmbeddedModelField(
+        model_container=SCart,
+    )
+    headline = models.CharField(max_length=255)

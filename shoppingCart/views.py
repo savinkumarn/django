@@ -10,6 +10,10 @@ def base(request):
 def getAllRecords(request):
     all = SCart.objects.all()
     context = {
-        "all_orders" : all
+        "all_orders": all
     }
     return render(request, 'sCart/allOrders.html', context)
+
+
+def addOrder(request):
+    return render(request, 'sCart/index.html', context=None)

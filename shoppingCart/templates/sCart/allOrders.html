@@ -1,8 +1,13 @@
-{% extends 'music/base.html' %}
-{% block albums_active %}active{% endblock %}
-
+{% extends 'sCart/base.html' %}
+{% block scart_active %}active{% endblock %}
 {% block body %}
+
+<h1>Here are the orders</h1>
+{% if all_orders %}
         {% for orders in all_orders %}
          <li> Order No- {{orders.workfile}}</li>
         {% endfor %}
+{% else %}
+    <h2> No Records Found</h2>
+{% endif%}
 {% endblock %}
