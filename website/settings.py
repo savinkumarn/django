@@ -83,9 +83,8 @@ DATABASES = {
     },
     'scart_db':{
         'ENGINE': 'djongo',
-        'NAME': 'scart_mongo_db',
-        'HOST': 'localhost',
-        'PORT': 27017,
+        'NAME': 'shoppingCart',
+        'HOST': 'mongodb+srv://admin:admin@cluster0-4km6c.mongodb.net/test?retryWrites=true',
         'ENFORCE_SCHEMA': True,
    },
 }

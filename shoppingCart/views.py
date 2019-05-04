@@ -8,7 +8,8 @@ def base(request):
 
 
 def getAllRecords(request):
-    all = SCart.objects.all()
+    all = SCart.objects.using('scart_db').all()
+    print(all)
     context = {
         "all_orders": all
     }
@@ -16,4 +17,5 @@ def getAllRecords(request):
 
 
 def addOrder(request):
-    return render(request, 'sCart/index.html', context=None)
+    #my_object.save(using='scart_db')
+    return render(request, 'sCart/addOrder.html', context=None)

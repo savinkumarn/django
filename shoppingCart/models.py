@@ -35,7 +35,7 @@ class Phone(models.Model):
 class Items(models.Model):
     itemNumber = models.IntegerField()
     vendorName = models.CharField(max_length=100)
-    modelNUmber = models.CharField(max_length=100)
+    modelNumber = models.CharField(max_length=100)
     description = models.CharField(max_length=100)
     price = models.ManyToManyField('Price')
 
