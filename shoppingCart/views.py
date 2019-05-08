@@ -1,6 +1,11 @@
 from django.shortcuts import render
 from .models import SCart
+from random import randint
 # Create your views here.
+
+
+def generateWorkfile():
+    return 'WORKFILE' + str(f'{randint(1, 99999):05}')
 
 
 def base(request):
@@ -17,5 +22,12 @@ def getAllRecords(request):
 
 
 def addOrder(request):
-    #my_object.save(using='scart_db')
-    return render(request, 'sCart/addOrder.html', context=None)
+    context = {
+        "workfile": generateWorkfile(),
+        "cartQty": 0,
+    }
+    return render(request, 'sCart/addOrder.html', context)
+
+
+def saveOrder(request):
+    pass

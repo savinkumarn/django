@@ -13,6 +13,7 @@ class SCart(models.Model):
 
 
 class Customer(models.Model):
+    customerID = models.CharField(max_length=20)
     name = models.CharField(max_length=100)
     address = models.ArrayModelField(models.ManyToManyField('Address'))
     phone = models.ManyToManyField('Phone')
