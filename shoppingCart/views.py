@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from .models import SCart
 from random import randint
+from .items import Items
 # Create your views here.
 
 
@@ -9,7 +10,7 @@ def generateWorkfile():
 
 
 def base(request):
-    return render(request, 'sCart/index.html',context=None)
+    return render(request, 'sCart/index.html', context=None)
 
 
 def getAllRecords(request):
@@ -31,3 +32,12 @@ def addOrder(request):
 
 def saveOrder(request):
     pass
+
+
+def addItem(request):
+    print(request.POST)
+    context = {
+        "workfile": generateWorkfile(),
+        "cartQty": 0,
+    }
+    return render(request, 'sCart/addOrder.html', context)
