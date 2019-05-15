@@ -3,21 +3,25 @@
 {% block body %}
     <h1>Shopping Cart</h1>
     <div>
-        <p>Item Entry</p>
+        <h2>Item Entry</h2>
         workfile : {{workfile}} <br>
         cartQty : {{cartQty}} <br>
         {% if items %}
             {% for item in items %}
-            <li>Number {{item.number}}  Qty {{item.quantity}}</li>
+                <li>Number {{item.number}}  Qty {{item.quantity}}</li>
             {% endfor %}
         {% else %}
-        <div> NO ITEMS IN CART</div>
+            <div> NO ITEMS IN CART</div>
         {% endif %}
         <div>
             <form id="item" action="{% url 'shoppingCart:addItem' %}" method="post">
                 {% csrf_token %}
-                Item Number : <input type="number" name="item_number" value="{{ item_number}}"><br>
-                Quantity : <input type="number" name="quantity" value="{{item_quantity}}"><br>
+                {{ itemForm.as_p}}
+                <!-- Item Number : <input type="number" name="item_number" value="{{ item_number}}"><br>
+                Quantity : <input type="number" name="quantity" value="{{item_quantity}}"><br>-->
+                <input type="hidden" name="workfile" value="{{workfile}}">
+                <input type="hidden" name="cartQty" value="{{cartQty}}">
+                <input type="hidden" name="items" value="{{items}}">
                 <input type="submit" value="Add Item to Order">
             </form>
         </div>
