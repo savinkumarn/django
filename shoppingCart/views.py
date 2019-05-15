@@ -1,13 +1,14 @@
 from django.shortcuts import render
 from .models import SCart
-from random import randint
-from .items import Items
+from .src.items import Items, createItemObject
 from .forms import ItemForm
+from .src.utils import generateWorkfile, initialize_global_var
 # Create your views here.
 
-
-def generateWorkfile():
-    return 'WORKFILE' + str(f'{randint(1, 99999):05}')
+# declaring global variables
+workfile = None
+qty = 0
+items_list = []
 
 
 def base(request):
@@ -24,10 +25,11 @@ def getAllRecords(request):
 
 
 def addOrder(request):
+    workfile, qty, items_list = initialize_global_var()
     context = {
-        "workfile": generateWorkfile(),
-        "cartQty": 0,
-        "items": [],
+        "workfile": workfile,
+        "cartQty": qty,
+        "items": items_list,
         "itemForm": ItemForm(),
     }
     return render(request, 'sCart/addOrder.html', context)
@@ -42,21 +44,11 @@ def addItem(request):
     if request.method == 'POST':
         form = ItemForm(request.POST)
         if form.is_valid():
-            print(request.POST)
-            workfile = request.POST.get('workfile')
-            cartQty = int(request.POST.get('cartQty')) + 1
-            items = request.POST.get('items')
-            item_number = request.POST.get('item_number')
-            item_quantity = request.POST.get('item_quantity')
-            dummy_item = {}
-            dummy_item["number"] = item_number
-            dummy_item["quantity"] = item_quantity
-            items_list = items.strip('][').split(', ')
-            items_list.append(dummy_item)
-            print(items_list)
+            createItemObject(request.POST, items_list)
+            qty = len(items_list)
             context = {
                 "workfile": workfile,
-                "cartQty": cartQty,
+                "cartQty": qty,
                 "items": items_list,
                 "itemForm": ItemForm(),
             }
