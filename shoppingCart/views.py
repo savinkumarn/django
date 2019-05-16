@@ -1,14 +1,8 @@
 from django.shortcuts import render
 from .models import SCart
-from .src.items import Items, createItemObject
 from .forms import ItemForm
-from .src.utils import generateWorkfile, initialize_global_var
+from .src.utils import *
 # Create your views here.
-
-# declaring global variables
-workfile = None
-qty = 0
-items_list = []
 
 
 def base(request):
@@ -25,18 +19,17 @@ def getAllRecords(request):
 
 
 def addOrder(request):
-    workfile, qty, items_list = initialize_global_var()
+    cart = initialize_global_var()
     context = {
-        "workfile": workfile,
-        "cartQty": qty,
-        "items": items_list,
+        "cart": cart,
         "itemForm": ItemForm(),
     }
     return render(request, 'sCart/addOrder.html', context)
 
 
 def saveOrder(request):
-    pass
+    context = None
+    return render(request, 'sCart/addOrder.html', context)
 
 
 def addItem(request):
@@ -44,13 +37,10 @@ def addItem(request):
     if request.method == 'POST':
         form = ItemForm(request.POST)
         if form.is_valid():
-            createItemObject(request.POST, items_list)
-            qty = len(items_list)
+            addItem_global_itemsList(request.POST)
+            inc_global_cartQty()
             context = {
-                "workfile": workfile,
-                "cartQty": qty,
-                "items": items_list,
+                "cart": get_global_cart(),
                 "itemForm": ItemForm(),
             }
-
     return render(request, 'sCart/addOrder.html', context)
