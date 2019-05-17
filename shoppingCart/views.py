@@ -1,6 +1,5 @@
 from django.shortcuts import render
 from .models import SCart
-from .forms import ItemForm
 from .src.utils import *
 # Create your views here.
 
@@ -19,28 +18,32 @@ def getAllRecords(request):
 
 
 def addOrder(request):
-    cart = initialize_global_var()
-    context = {
-        "cart": cart,
-        "itemForm": ItemForm(),
-    }
+    initialize_global_var()
+    context = get_context_for_addOrder()
     return render(request, 'sCart/addOrder.html', context)
 
 
 def saveOrder(request):
-    context = None
+    context = get_context_for_addOrder()
+    if request.method == 'POST':
+        form = CustomerForm(request.POST)
+        if form.is_valid():
+            addCustomer_cartData(request.POST)
+            context["paymentView"] = True
+            context["paymentForm"] = PaymentForm()
     return render(request, 'sCart/addOrder.html', context)
 
 
+def completeSale(request):
+    pass
+
+
 def addItem(request):
-    context = None
+    context = get_context_for_addOrder()
     if request.method == 'POST':
         form = ItemForm(request.POST)
         if form.is_valid():
             addItem_global_itemsList(request.POST)
             inc_global_cartQty()
-            context = {
-                "cart": get_global_cart(),
-                "itemForm": ItemForm(),
-            }
+            context["cart"] = get_global_cart()
     return render(request, 'sCart/addOrder.html', context)

@@ -3,13 +3,14 @@
 {% block body %}
     <h1>Shopping Cart</h1>
     <div>
+        <li> {{cart}} </li
+        {% if not paymentView %}
         <h2>Item Entry</h2>
         workfile : {{cart.workfile}} <br>
         cartQty : {{cart.cartQty}} <br>
         {% if cart.items %}
             {% for item in cart.items %}
                 <li>Number {{item.number}}  Qty {{item.quantity}}</li>
-                <li> {{item}} </li>
             {% endfor %}
         {% else %}
             <div> NO ITEMS IN CART</div>
@@ -22,11 +23,18 @@
             </form>
         </div>
         <div>
-            <form id="order" action="/addOrder/" method="post">
+            <form id="order" action="{% url 'shoppingCart:saveOrder' %}" method="post">
                 {% csrf_token %}
-                Customer ID : <input type="text" name="cusId"><br>
-                <input type="submit" value="Search Customer">
+                {{customerForm.as_p}}
+                <input type="submit" value="Save Order">
             </form>
         </div>
+        {% else %}
+            <form id="order" action="{% url 'shoppingCart:completeSale' %}" method="post">
+                {% csrf_token %}
+                {{paymentForm.as_p}}
+                <input type="submit" value="Make Payment">
+            </form>
+        {% endif %}
     </div>
 {% endblock %}
