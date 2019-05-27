@@ -60,15 +60,40 @@ scart_db
 
 ============================================================================
 
-shoppingCart structure :
+
+pymongo
+
+"date": datetime.datetime.utcnow()}
+
+insert_one(<dict>).inserted_id
+order.find_one({query here})
+
+from bson.objectid import ObjectId
+
+# The web framework gets post_id from the URL and passes it as a string
+def get(post_id):
+    # Convert from string to ObjectId:
+    document = client.db.collection.find_one({'_id': ObjectId(post_id)})
+
+>>> for post in posts.find():
+...   pprint.pprint(post)
 
 
-{
-
-}
+posts.count_documents({}) with and without query
 
 
+>>> d = datetime.datetime(2009, 11, 12, 12)
+>>> for post in posts.find({"date": {"$lt": d}}).sort("author"):
 
 
+WORKFILE33573
 
+rec = orders.find_one({"cart.workfile":"WORKFILE06150"})["cart"]["cartQty"]
 
+orders.update_one({"cart.workfile":"WORKFILE06150"},{"$inc" : {"cart.cartQty" : 2}})
+
+orders.update_one({"cart.workfile":"WORKFILE06150"},{"$push" : {"cart.items" : {"itemNumber":21412,"quantity":3,"modelNumber":"AD23412"}}})
+
+orders.update_one({"cart.workfile":"WORKFILE06150"},{"$push" : {"cart.items" : {"itemNumber":12212,"quantity":3,"modelNumber":"AD23412"}}})
+
+orders.delete_one({"workfile":{"$exists":True}})

@@ -37,6 +37,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django.contrib.humanize',
     'music.apps.MusicConfig',
     'shoppingCart',
     'main',
@@ -81,12 +82,6 @@ DATABASES = {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
     },
-    'scart_db':{
-        'ENGINE': 'djongo',
-        'NAME': 'shoppingCart',
-        'HOST': 'mongodb+srv://admin:admin@cluster0-4km6c.mongodb.net/test?retryWrites=true',
-        'ENFORCE_SCHEMA': True,
-   },
 }
 
 # Password validation

@@ -1,3 +1,7 @@
+from .utils import create_order_context
+from .shoppingCart import getCart
+from .mongo import save_cust_details
+from copy import deepcopy
 
 
 def getAddress():
@@ -21,10 +25,18 @@ def getPhone():
     return dummy_phone
 
 
-def create_customer(customerId):
-    dummy_customer = {}
-    dummy_customer["customerId"] = customerId
-    dummy_customer["name"] = "dummy Name"
-    dummy_customer["address"] = getAddress()
-    dummy_customer["phone"] = getPhone()
-    return dummy_customer
+def add_cust_det_to_order(formData):
+    customer = {}
+    customer["cust_id"] = formData.get("customer_Id")
+    customer["name"] = "Customer Name"
+    customer["address"] = getAddress()
+    customer["phone"] = getPhone()
+    workfile = formData.get('workfile')
+    save_cust_details(workfile, customer)
+    cart = getCart(workfile)
+    total = float(cart["cartTotal"])
+    balance = deepcopy(total)
+    context = create_order_context(cart, True)
+    context["total"] = total
+    context["balance"] = balance
+    return context

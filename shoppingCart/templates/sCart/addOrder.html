@@ -3,38 +3,50 @@
 {% block body %}
     <h1>Shopping Cart</h1>
     <div>
-        <li> {{cart}} </li
+        {{cart}}
+        {% load humanize %}
         {% if not paymentView %}
-        <h2>Item Entry</h2>
-        workfile : {{cart.workfile}} <br>
-        cartQty : {{cart.cartQty}} <br>
-        {% if cart.items %}
-            {% for item in cart.items %}
-                <li>Number {{item.number}}  Qty {{item.quantity}}</li>
-            {% endfor %}
+            <h2>Item Entry</h2>
+            <p><b><em> Order Ref No : </em>{{cart.workfile}} <br></b></p>
+            <p><b><em> Cart Qty : </em>{{cart.cartQty}} <br></b></p>
+            <p><b><em> Cart Total : </em>{{cart.cartTotal|floatformat:2|intcomma}} <br></b></p>
+            {% if cart.items %}
+                {% for item in cart.items %}
+                    <em><li>Item Number : {{item.itemNumber}}
+                        Qty {{item.quantity}}
+                        SellingPrice {{item.price.sellingPrice|floatformat:2|intcomma}}
+                    Subtotal {{item.totalValue|floatformat:2|intcomma}} <br></li></em>
+                {% endfor %}
+            {% else %}
+                <h2> NO ITEMS IN CART</h2>
+            {% endif %}
+            <div>
+                <form id="item" action="{% url 'shoppingCart:addItem' %}" method="post">
+                    {% csrf_token %}
+                    {{ itemForm.as_p}}
+                    <input type="hidden" name="workfile" value="{{cart.workfile}}">
+                    <input type="submit" value="Add Item">
+                </form>
+            </div>
+            <div>
+                <form id="order" action="{% url 'shoppingCart:saveOrder' %}" method="post">
+                    {% csrf_token %}
+                    {{customerForm.as_p}}
+                    <input type="hidden" name="workfile" value="{{cart.workfile}}">
+                    <input type="submit" value="Save Order">
+                </form>
+            </div>
         {% else %}
-            <div> NO ITEMS IN CART</div>
-        {% endif %}
-        <div>
-            <form id="item" action="{% url 'shoppingCart:addItem' %}" method="post">
-                {% csrf_token %}
-                {{ itemForm.as_p}}
-                <input type="submit" value="Add Item">
-            </form>
-        </div>
-        <div>
-            <form id="order" action="{% url 'shoppingCart:saveOrder' %}" method="post">
-                {% csrf_token %}
-                {{customerForm.as_p}}
-                <input type="submit" value="Save Order">
-            </form>
-        </div>
-        {% else %}
-            <form id="order" action="{% url 'shoppingCart:completeSale' %}" method="post">
-                {% csrf_token %}
-                {{paymentForm.as_p}}
-                <input type="submit" value="Make Payment">
-            </form>
+            <div>
+                <form id="payment" action="{% url 'shoppingCart:completeSale' %}" method="post">
+                    {% csrf_token %}
+                    <li><b> Total : {{total|floatformat:2|intcomma}}</b></li>
+                    <li><b> Balance : {{balance|floatformat:2|intcomma}}</b></li>
+                    {{paymentForm.as_p}}
+                    <input type="hidden" name="workfile" value="{{cart.workfile}}">
+                    <input type="submit" value="Make Payment">
+                </form>
+            </div>
         {% endif %}
     </div>
 {% endblock %}

@@ -5,7 +5,8 @@
 <h1>Here are the orders</h1>
 {% if all_orders %}
         {% for orders in all_orders %}
-         <li> Order No- {{orders.workfile}}</li>
+         <li> Order No- {{orders.cart.workfile}}</li>
+         <li> {{orders.cart }}</li><br>
         {% endfor %}
 {% else %}
     <h2> No Records Found</h2>

@@ -1,9 +1,9 @@
 from django import forms
 
 PAYMENT_CHOICES = (
-    ("cash", "cash"),
-    ("card", "card"),
-    ("cheque", "cheque"))
+    ("cash", "CASH"),
+    ("card", "CARD"),
+    ("cheque", "CHEQUE"))
 
 
 class ItemForm(forms.Form):
