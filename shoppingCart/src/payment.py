@@ -31,7 +31,6 @@ def getContext(workfile):
         context = create_order_context(cart, True)
         context["balance"] = balance
         context["total"] = total
-        print(context)
         page = 'sCart/addOrder.html'
     else:
         context = {"all_orders": get_all()}
